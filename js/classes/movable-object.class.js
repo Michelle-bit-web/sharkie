@@ -3,6 +3,11 @@ class MovableObject {
     y = 10;
     img;
 
+    loadImage(path){
+        this.img = new Image();
+        this.img.src = path;
+    }
+
     moveRight(){
         console.log('Moving right');
     }
