@@ -1,13 +1,10 @@
 let canvas;
 let ctx;
-let character = new MovableObject();
+let world = new World();
 
 function init(){
 canvas = document.getElementById('canvas');
 ctx = canvas.getContext('2d');
-character.src = '../assets/img/1.Sharkie/3.Swim/1.png';
 
-ctx.drawImage(character, 20, 20, 50, 100);
-
-console.log('My character is ', character)
+console.log('My character is ', world.character)
 }
