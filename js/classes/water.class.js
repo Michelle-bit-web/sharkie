@@ -5,12 +5,12 @@ class Water extends MovableObject {
     width = 720;
     constructor(){
         super().loadImage('../assets/img/3. Background/Layers/5. Water/D1.png');
-        this.animate();
+        // this.animate();
     }
 
-    animate(){
-        setInterval(() => {
-            this.x -= 0.4;
-        }, 1000 / 60);
-    }
+    // animate(){
+    //     setInterval(() => {
+    //         this.x -= 0.4;
+    //     }, 1000 / 60);
+    // }
 }
