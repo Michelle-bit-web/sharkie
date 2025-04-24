@@ -4,6 +4,8 @@ class World {
         new Fish(),
         new Fish(),
         new Fish(),
+        new JellyFish(),
+        new JellyFish(),
     ];
     light = [
         new Light()

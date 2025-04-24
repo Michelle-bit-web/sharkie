@@ -1,0 +1,40 @@
+class JellyFish extends MovableObject{
+
+    IMAGES_WALKING = [ //Den Farbwechsel vllt. für Schwierigkeitsgrad/Level nutzen 
+      '../assets/img/2.Enemy/2 Jelly fish/Regular damage/Lila 1.png',
+      '../assets/img/2.Enemy/2 Jelly fish/Regular damage/Lila 2.png',
+      '../assets/img/2.Enemy/2 Jelly fish/Regular damage/Lila 3.png',
+      '../assets/img/2.Enemy/2 Jelly fish/Regular damage/Lila 4.png',
+
+      '../assets/img/2.Enemy/2 Jelly fish/Regular damage/Yellow 1.png',
+      '../assets/img/2.Enemy/2 Jelly fish/Regular damage/Yellow 2.png',
+      '../assets/img/2.Enemy/2 Jelly fish/Regular damage/Yellow 3.png',
+      '../assets/img/2.Enemy/2 Jelly fish/Regular damage/Yellow 4.png',
+
+      '../assets/img/2.Enemy/2 Jelly fish/Súper dangerous/Green 1.png',
+      '../assets/img/2.Enemy/2 Jelly fish/Súper dangerous/Green 2.png',
+      '../assets/img/2.Enemy/2 Jelly fish/Súper dangerous/Green 3.png',
+      '../assets/img/2.Enemy/2 Jelly fish/Súper dangerous/Green 4.png',
+
+      '../assets/img/2.Enemy/2 Jelly fish/Súper dangerous/Pink 1.png',
+      '../assets/img/2.Enemy/2 Jelly fish/Súper dangerous/Pink 2.png',
+      '../assets/img/2.Enemy/2 Jelly fish/Súper dangerous/Pink 3.png',
+      '../assets/img/2.Enemy/2 Jelly fish/Súper dangerous/Pink 4.png',
+    ];
+
+    constructor(){
+        super().loadImage('../assets/img/2.Enemy/2 Jelly fish/Regular damage/Lila 1.png');
+        this.x = 200 + Math.random()*500;
+        this.loadImages(this.IMAGES_WALKING);
+        this.animate();
+    }
+
+    animate(){
+        setInterval(() => {
+            let i = this.currentImage % this.IMAGES_WALKING.length;
+            let path = this.IMAGES_WALKING[i];
+            this.img = this.imageCache[path];
+            this.currentImage ++;
+        }, 1000 /4);
+    }
+}
