@@ -2,6 +2,7 @@ class Character extends MovableObject{
     width = 150;
     height = 200;
     y = 130;
+    world;
     IMAGES_WALKING = [
         '../assets/img/1.Sharkie/3.Swim/1.png',
         '../assets/img/1.Sharkie/3.Swim/2.png',
@@ -11,7 +12,6 @@ class Character extends MovableObject{
         '../assets/img/1.Sharkie/3.Swim/6.png',
     ];
     
-
     constructor(){
         super().loadImage('../assets/img/1.Sharkie/3.Swim/1.png')
         this.loadImages(this.IMAGES_WALKING);
@@ -20,10 +20,12 @@ class Character extends MovableObject{
     
     animate(){
         setInterval(() => {
-            let i = this.currentImage % this.IMAGES_WALKING.length;
+            if(this.world.keyboard.RIGHT){
+                let i = this.currentImage % this.IMAGES_WALKING.length;
             let path = this.IMAGES_WALKING[i];
             this.img = this.imageCache[path];
             this.currentImage ++;
+            }
         }, 1000 / 6);
     }
 
