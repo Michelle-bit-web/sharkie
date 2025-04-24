@@ -26,6 +26,7 @@ class JellyFish extends MovableObject{
         super().loadImage('../assets/img/2.Enemy/2 Jelly fish/Regular damage/Lila 1.png');
         this.x = 200 + Math.random()*500;
         this.loadImages(this.IMAGES_WALKING);
+        this.speed = 0.15 + Math.random() * 0.3
         this.animate();
     }
 
@@ -36,5 +37,6 @@ class JellyFish extends MovableObject{
             this.img = this.imageCache[path];
             this.currentImage ++;
         }, 1000 /4);
+        this.moveUp();
     }
 }
