@@ -5,10 +5,11 @@ class World {
         new Fish(),
         new Fish(),
     ];
-    water = [
-        new Water()
+    light = [
+        new Light()
     ];
     backgroundobjects = [
+        new BackgroundObject('../assets/img/3. Background/Layers/5. Water/D1.png', 0),
         new BackgroundObject('../assets/img/3. Background/Layers/4.Fondo 2/D1.png', 0),
         new BackgroundObject('../assets/img/3. Background/Layers/3.Fondo 1/D1.png', 0),
         new BackgroundObject('../assets/img/3. Background/Layers/2. Floor/D1.png', 0),
@@ -23,10 +24,10 @@ class World {
 
     draw(){
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        this.addObjectsToMap(this.water);
         this.addObjectsToMap(this.backgroundobjects);
         this.addToMap(this.character);
         this.addObjectsToMap(this.enemies);
+        this.addObjectsToMap(this.light);
 
         requestAnimationFrame( () => this.draw());
     }
