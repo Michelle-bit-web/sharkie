@@ -1,35 +1,43 @@
-class Character extends MovableObject{
-    width = 150;
-    height = 200;
-    y = 130;
-    world;
-    IMAGES_WALKING = [
-        '../assets/img/1.Sharkie/3.Swim/1.png',
-        '../assets/img/1.Sharkie/3.Swim/2.png',
-        '../assets/img/1.Sharkie/3.Swim/3.png',
-        '../assets/img/1.Sharkie/3.Swim/4.png',
-        '../assets/img/1.Sharkie/3.Swim/5.png',
-        '../assets/img/1.Sharkie/3.Swim/6.png',
-    ];
-    
-    constructor(){
-        super().loadImage('../assets/img/1.Sharkie/3.Swim/1.png')
-        this.loadImages(this.IMAGES_WALKING);
-        this.animate();
-    }
-    
-    animate(){
-        setInterval(() => {
-            if(this.world.keyboard.RIGHT){
-                let i = this.currentImage % this.IMAGES_WALKING.length;
+class Character extends MovableObject {
+  width = 150;
+  height = 200;
+  y = 130;
+  world;
+  speed = 15;
+  IMAGES_WALKING = [
+    "../assets/img/1.Sharkie/3.Swim/1.png",
+    "../assets/img/1.Sharkie/3.Swim/2.png",
+    "../assets/img/1.Sharkie/3.Swim/3.png",
+    "../assets/img/1.Sharkie/3.Swim/4.png",
+    "../assets/img/1.Sharkie/3.Swim/5.png",
+    "../assets/img/1.Sharkie/3.Swim/6.png",
+  ];
+
+  constructor() {
+    super().loadImage("../assets/img/1.Sharkie/3.Swim/1.png");
+    this.loadImages(this.IMAGES_WALKING);
+    this.animate();
+  }
+
+  animate() {
+    setInterval(() => {
+        if (this.world.keyboard.RIGHT) {
+            this.x += this.speed;
+        }
+        if (this.world.keyboard.LEFT) {
+            this.x -= this.speed;
+        }
+    }, 1000 / 30);
+
+    setInterval(() => {
+        if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+            let i = this.currentImage % this.IMAGES_WALKING.length;
             let path = this.IMAGES_WALKING[i];
             this.img = this.imageCache[path];
-            this.currentImage ++;
-            }
-        }, 1000 / 6);
-    }
+            this.currentImage++;
+        } 
+    }, 50);
+  }
 
-    jump(){
-        
-    }
+  jump() {}
 }
