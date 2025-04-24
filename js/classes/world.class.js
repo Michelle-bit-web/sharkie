@@ -8,6 +8,9 @@ class World {
     water = [
         new Water()
     ];
+    backgroundobjects = [
+        new BackgroundObject('../assets/img/3. Background/Layers/4.Fondo 2/D1.png', 0, 480)
+    ];
     canvas;
     ctx;
     constructor(canvas){
@@ -18,14 +21,18 @@ class World {
 
     draw(){
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        this.water.forEach(water =>{
-            this.ctx.drawImage(water.img, water.x, water.y, water.width, water.height);
-        });
-        this.ctx.drawImage(this.character.img, this.character.x, this.character.y, this.character.width, this.character.height);
+        this.addObjectsToMap(this.water);
+        this.addObjectsToMap(this.backgroundobjects);
+        this.addToMap(this.character);
+        this.addObjectsToMap(this.enemies);
+
         requestAnimationFrame( () => this.draw());
-        this.enemies.forEach(enemy =>{
-            this.ctx.drawImage(enemy.img, enemy.x, enemy.y, enemy.width, enemy.height);
-        });
-        
+    }
+    addObjectsToMap(objects){
+        objects.forEach(obj => this.addToMap(obj))
+    }
+
+    addToMap(mo) {
+        this.ctx.drawImage(mo.img, mo.x, mo.y, mo.width, mo.height);
     }
 }
