@@ -1,9 +1,11 @@
 class Character extends MovableObject {
   width = 150;
   height = 200;
-  y = 130;
+  y = 80;
   world;
   speed = 15;
+  speedY = 0;
+  acceleration = 1;
   IMAGES_WALKING = [
     "../assets/img/1.Sharkie/3.Swim/1.png",
     "../assets/img/1.Sharkie/3.Swim/2.png",
@@ -17,6 +19,7 @@ class Character extends MovableObject {
     super().loadImage("../assets/img/1.Sharkie/3.Swim/1.png");
     this.loadImages(this.IMAGES_WALKING);
     this.animate();
+    this.applyGravity();
   }
 
   animate() {
@@ -37,6 +40,15 @@ class Character extends MovableObject {
           this.playAnimation(this.IMAGES_WALKING);
         } 
     }, 50);
+  }
+
+  applyGravity(){
+    setInterval(() => {
+      if(this.y < 130){
+        this.y -= this.speedY;
+        this.speedY -= this.acceleration;
+      }
+    }, 1000 / 25)
   }
 
   jump() {}
