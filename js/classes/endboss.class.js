@@ -1,4 +1,8 @@
 class Endboss extends MovableObject{
+    height = 400;
+    width = 250;
+    y= 1;
+
     IMAGES_WALKING = [ //Den Farbwechsel vllt. für Schwierigkeitsgrad/Level nutzen 
         '../assets/img/2.Enemy/3 Final Enemy/1.Introduce/1.png',
         '../assets/img/2.Enemy/3 Final Enemy/1.Introduce/2.png',
