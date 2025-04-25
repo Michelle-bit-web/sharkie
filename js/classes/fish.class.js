@@ -30,6 +30,9 @@ class Fish extends MovableObject{
         setInterval(() => {
             this.playAnimation(this.IMAGES_WALKING);
         }, 1000 / 6);
-        this.moveLeft();
+        setInterval(() =>{
+            this.moveLeft();
+        }, 1000 / 60)
+        
     }
 }
