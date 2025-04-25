@@ -10,9 +10,9 @@ class Level {
   collectBgImages(pathTemplate) {
     let result = [];
 
-    for (let i = 0; i <= 4; i++) {
+    for (let i = -1; i <= 4; i++) {
       let position = 719 * i;
-      let number = i % 2 === 1 ? 1 : 2;
+      let number = i % 2 === -1 ? 2 : i % 2 === 1 ? 2 : 1;
       result.push(
         new BackgroundObject(`${pathTemplate}/5. Water/D${number}.png`, position),
         new BackgroundObject(`${pathTemplate}/4.Fondo 2/D${number}.png`, position),
