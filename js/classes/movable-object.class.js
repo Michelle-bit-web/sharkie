@@ -14,6 +14,8 @@ class MovableObject {
     right: 0,
     bottom: 0
   }
+  energy = 100;
+  hitByEnemyType;
 
   loadImage(path) {
     this.img = new Image();
@@ -79,8 +81,17 @@ class MovableObject {
     && this.y < mo.y + mo.height;
   }
   
-  jump() {}
+  hit(){
+   if(this.energy == 0){
+    this.isDead();
+   } else{
+    this.energy -= 5;
+   }
+  }
 
+  isDead(){
+    return this.energy == 0;
+  }
   playAnimation(images) {
     let i = this.currentImage % images.length;
     let path = images[i];

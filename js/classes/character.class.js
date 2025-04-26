@@ -34,11 +34,38 @@ class Character extends MovableObject {
     "../assets/img/1.Sharkie/1.IDLE/17.png",
     "../assets/img/1.Sharkie/1.IDLE/18.png",
   ];
+  IMAGES_DYING = [
+    "../assets/img/1.Sharkie/6.dead/1.Poisoned/1.png",
+    "../assets/img/1.Sharkie/6.dead/1.Poisoned/2.png",
+    "../assets/img/1.Sharkie/6.dead/1.Poisoned/3.png",
+    "../assets/img/1.Sharkie/6.dead/1.Poisoned/4.png",
+    "../assets/img/1.Sharkie/6.dead/1.Poisoned/5.png",
+    "../assets/img/1.Sharkie/6.dead/1.Poisoned/6.png",
+    "../assets/img/1.Sharkie/6.dead/1.Poisoned/7.png",
+    "../assets/img/1.Sharkie/6.dead/1.Poisoned/8.png",
+    "../assets/img/1.Sharkie/6.dead/1.Poisoned/9.png",
+    "../assets/img/1.Sharkie/6.dead/1.Poisoned/10.png",
+  ];
+
+  IMAGES_DYING_ELECTRO = [//gibt noch Elektroschock-Tot
+    "../assets/img/1.Sharkie/6.dead/2.Electro_shock/1.png",
+    "../assets/img/1.Sharkie/6.dead/2.Electro_shock/2.png",
+    "../assets/img/1.Sharkie/6.dead/2.Electro_shock/3.png",
+    "../assets/img/1.Sharkie/6.dead/2.Electro_shock/4.png",
+    "../assets/img/1.Sharkie/6.dead/2.Electro_shock/5.png",
+    "../assets/img/1.Sharkie/6.dead/2.Electro_shock/6.png",
+    "../assets/img/1.Sharkie/6.dead/2.Electro_shock/7.png",
+    "../assets/img/1.Sharkie/6.dead/2.Electro_shock/8.png",
+    "../assets/img/1.Sharkie/6.dead/2.Electro_shock/9.png",
+    "../assets/img/1.Sharkie/6.dead/2.Electro_shock/10.png",
+  ];
 
   constructor() {
     super().loadImage("../assets/img/1.Sharkie/3.Swim/1.png");
     this.loadImages(this.IMAGES_WALKING);
     this.loadImages(this.IMAGES_RESTING);
+    this.loadImages(this.IMAGES_DYING);
+    this.loadImages(this.IMAGES_DYING_ELECTRO);
     this.animate();
     this.applyGravity();
   }
@@ -68,11 +95,18 @@ class Character extends MovableObject {
     }, 1000 / 30);
 
     setInterval(() => {
-      if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) { //this.world.keyboard.SPACE for jump
-        this.playAnimation(this.IMAGES_WALKING);
-      }else{
-        this.playAnimation(this.IMAGES_RESTING); 
-      };
+      if (this.isDead()) { 
+        if(this.hitByEnemyType.name == "JellyFish"){
+          this.playAnimation(this.IMAGES_DYING_ELECTRO);
+        }else{
+          this.playAnimation(this.IMAGES_DYING);
+        }
+       
+      } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) { //this.world.keyboard.SPACE for jump
+         this.playAnimation(this.IMAGES_WALKING);
+       }else{
+         this.playAnimation(this.IMAGES_RESTING); 
+       };
     }, 50);      
   }
 

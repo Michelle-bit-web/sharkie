@@ -23,7 +23,11 @@ class World {
         setInterval(() => {
             this.level.enemies.forEach((enemy) => {
                 if(this.character.isColliding(enemy)){
-                    console.log('Treffer');
+                    this.character.hitByEnemyType = enemy;
+                    // console.log(enemy);
+                    // console.log(this.character.hitByEnemyType) //gibt den richtigen letzten Enemy aus
+                    this.character.hit();
+                    console.log(`Your energy is: ${this.character.energy} by ${enemy}`);
                 }
             })
         }, 100)
