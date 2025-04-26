@@ -1,13 +1,6 @@
-class MovableObject {
-  x = 10;
-  y = 180;
-  img;
-  width = 70;
-  height = 90;
-  speed = 0.25;
-  currentImage = 0;
-  imageCache = {};
-  otherDirection = false;
+class MovableObject extends DrawableObject{
+ speed = 0.25;
+ otherDirection = false;
   offset = {
     top: 0,
     left: 0,
@@ -16,24 +9,7 @@ class MovableObject {
   }
   energy = 100;
   hitByEnemyType;
-  lastHit = 0;
-
-  loadImage(path) {
-    this.img = new Image();
-    this.img.src = path;
-  }
-
-  loadImages(arr) {
-    arr.forEach((path) => {
-      let img = new Image();
-      img.src = path;
-      this.imageCache[path] = img;
-    });
-  }
-
-  draw(ctx) {
-    ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
-  }
+  lastHit = 0;   
 
   drawFrame(ctx) {
     if (this instanceof Character || this instanceof Fish || this instanceof JellyFish || this instanceof Endboss) {
