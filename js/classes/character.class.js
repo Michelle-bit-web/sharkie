@@ -42,6 +42,12 @@ class Character extends MovableObject {
     this.animate();
     this.applyGravity();
   }
+  offset = {
+    top: 105,
+    left: 40,
+    right: 40,
+    bottom: 55
+  }
 
   animate() {
     setInterval(() => {

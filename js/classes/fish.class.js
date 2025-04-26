@@ -17,6 +17,12 @@ class Fish extends MovableObject{
        '../assets/img/2.Enemy/1.Puffer fish (3 color options)/1.Swim/3.swim4.png',
        '../assets/img/2.Enemy/1.Puffer fish (3 color options)/1.Swim/3.swim5.png',
     ];
+    offset = {
+        top: 10,
+        left: 60,
+        right: 60,
+        bottom: 30
+      }
 
     constructor(){
         super().loadImage('../assets/img/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim1.png');
