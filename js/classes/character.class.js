@@ -46,8 +46,7 @@ class Character extends MovableObject {
     "../assets/img/1.Sharkie/6.dead/1.Poisoned/9.png",
     "../assets/img/1.Sharkie/6.dead/1.Poisoned/10.png",
   ];
-
-  IMAGES_DYING_ELECTRO = [//gibt noch Elektroschock-Tot
+  IMAGES_DYING_ELECTRO = [
     "../assets/img/1.Sharkie/6.dead/2.Electro_shock/1.png",
     "../assets/img/1.Sharkie/6.dead/2.Electro_shock/2.png",
     "../assets/img/1.Sharkie/6.dead/2.Electro_shock/3.png",
@@ -59,6 +58,18 @@ class Character extends MovableObject {
     "../assets/img/1.Sharkie/6.dead/2.Electro_shock/9.png",
     "../assets/img/1.Sharkie/6.dead/2.Electro_shock/10.png",
   ];
+  IMAGES_HURT = [
+    "../assets/img/1.Sharkie/5.Hurt/1.Poisoned/1.png",
+    "../assets/img/1.Sharkie/5.Hurt/1.Poisoned/2.png",
+    "../assets/img/1.Sharkie/5.Hurt/1.Poisoned/3.png",
+    "../assets/img/1.Sharkie/5.Hurt/1.Poisoned/4.png",
+
+  ];
+  IMAGES_HURT_ELECTRO = [
+    "../assets/img/1.Sharkie/5.Hurt/2.Electric shock/1.png",
+    "../assets/img/1.Sharkie/5.Hurt/2.Electric shock/2.png",
+    "../assets/img/1.Sharkie/5.Hurt/2.Electric shock/3.png",
+  ];
 
   constructor() {
     super().loadImage("../assets/img/1.Sharkie/3.Swim/1.png");
@@ -66,6 +77,8 @@ class Character extends MovableObject {
     this.loadImages(this.IMAGES_RESTING);
     this.loadImages(this.IMAGES_DYING);
     this.loadImages(this.IMAGES_DYING_ELECTRO);
+    this.loadImages(this.IMAGES_HURT);
+    this.loadImages(this.IMAGES_HURT_ELECTRO);
     this.animate();
     this.applyGravity();
   }
@@ -101,10 +114,15 @@ class Character extends MovableObject {
         }else{
           this.playAnimation(this.IMAGES_DYING);
         }
-       
+      } else if (this.isHurt()) { 
+        if(this.hitByEnemyType.name == "JellyFish"){
+          this.playAnimation(this.IMAGES_HURT_ELECTRO);
+        }else{
+          this.playAnimation(this.IMAGES_HURT);
+        }
       } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) { //this.world.keyboard.SPACE for jump
          this.playAnimation(this.IMAGES_WALKING);
-       }else{
+       } else{
          this.playAnimation(this.IMAGES_RESTING); 
        };
     }, 50);      

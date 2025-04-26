@@ -16,6 +16,7 @@ class MovableObject {
   }
   energy = 100;
   hitByEnemyType;
+  lastHit = 0;
 
   loadImage(path) {
     this.img = new Image();
@@ -86,7 +87,14 @@ class MovableObject {
     this.isDead();
    } else{
     this.energy -= 5;
+    this.lastHit = new Date().getTime();
    }
+  }
+
+  isHurt(){
+    let passedTime = new Date().getTime() - this.lastHit;
+    passedTime = passedTime / 1000;
+    return passedTime < 1;
   }
 
   isDead(){
