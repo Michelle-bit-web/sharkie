@@ -11,31 +11,9 @@ class MovableObject extends DrawableObject{
   hitByEnemyType;
   lastHit = 0;   
 
-  drawFrame(ctx) {
-    if (this instanceof Character || this instanceof Fish || this instanceof JellyFish || this instanceof Endboss) {
-      ctx.beginPath();
-      ctx.lineWidth = "3";
-      ctx.strokeStyle = "blue";
-      ctx.rect(this.x, this.y, this.width, this.height);
-      ctx.stroke();
-    }
-  }
+  
 
-  drawOffsetFrame(ctx) {
-    if (this instanceof Character || this instanceof Fish || this instanceof JellyFish || this instanceof Endboss) {
-      ctx.beginPath();
-      ctx.lineWidth = "3";
-      ctx.strokeStyle = "red";
-  
-      const offsetX = this.x + this.offset.left;
-      const offsetY = this.y + this.offset.top;
-      const offsetWidth = this.width - this.offset.left - this.offset.right;
-      const offsetHeight = this.height - this.offset.top - this.offset.bottom;
-  
-      ctx.rect(offsetX, offsetY, offsetWidth, offsetHeight);
-      ctx.stroke();
-    }
-  }
+
 
   moveRight() {
     this.x += this.speed;

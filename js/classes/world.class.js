@@ -5,6 +5,7 @@ class World {
     ctx;
     keyboard;
     camera_x = 0;
+    statusbar = new Statusbar();
 
     constructor(canvas, keyboard){
         this.ctx = canvas.getContext('2d');
@@ -39,6 +40,7 @@ class World {
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.enemies);
+        this.addToMap(this.statusbar);
         this.ctx.translate(-this.camera_x, 0);
         
         requestAnimationFrame( () => this.draw());
