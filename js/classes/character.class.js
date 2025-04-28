@@ -6,7 +6,7 @@ class Character extends MovableObject {
   speed = 15;
   speedY = 0;
   acceleration = 1;
-  IMAGES_WALKING = [
+  IMAGES_SWIMMING = [
     "../assets/img/1.Sharkie/3.Swim/1.png",
     "../assets/img/1.Sharkie/3.Swim/2.png",
     "../assets/img/1.Sharkie/3.Swim/3.png",
@@ -73,7 +73,7 @@ class Character extends MovableObject {
 
   constructor() {
     super().loadImage("../assets/img/1.Sharkie/3.Swim/1.png");
-    this.loadImages(this.IMAGES_WALKING);
+    this.loadImages(this.IMAGES_SWIMMING);
     this.loadImages(this.IMAGES_RESTING);
     this.loadImages(this.IMAGES_DYING);
     this.loadImages(this.IMAGES_DYING_ELECTRO);
@@ -121,7 +121,7 @@ class Character extends MovableObject {
           this.playAnimation(this.IMAGES_HURT);
         }
       } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) { //this.world.keyboard.SPACE for jump
-         this.playAnimation(this.IMAGES_WALKING);
+         this.playAnimation(this.IMAGES_SWIMMING);
        } else{
          this.playAnimation(this.IMAGES_RESTING); 
        };

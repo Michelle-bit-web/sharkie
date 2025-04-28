@@ -5,7 +5,9 @@ class World {
     ctx;
     keyboard;
     camera_x = 0;
-    statusbar = new Statusbar();
+    energyStatusbar = new Statusbar('energy', 20, 5);
+    coinStatusbar = new Statusbar('coin', 20, 45);
+    poisonStatusbar = new Statusbar('poison', 20, 85);
     throwableObjects = [];
     collectableObjects = [new CollectableObjects()];
 
@@ -36,14 +38,14 @@ class World {
                 // console.log(enemy);
                 // console.log(this.character.hitByEnemyType) //gibt den richtigen letzten Enemy aus
                 this.character.hit();
-                this.statusbar.setPercentage(this.character.energy);
+                this.energyStatusbar.setPercentage(this.character.energy);
             }
         });
     }
 
     checkThrowing(){
         if(this.keyboard.THROW){
-           let bubble = new ThrowableObject(this.character.x, this.character.y, this.keyboard);
+           let bubble = new ThrowableObject(this.character.x + this.character.width, this.character.y + this.character.height/2, this.keyboard);
             this.throwableObjects.push(bubble)
         }
     }
@@ -55,7 +57,9 @@ class World {
 
         this.ctx.translate(-this.camera_x, 0);
         // ---- place for fixed objects ----
-        this.addToMap(this.statusbar);
+        this.addToMap(this.energyStatusbar);
+        this.addToMap(this.coinStatusbar);
+        this.addToMap(this.poisonStatusbar);
         this.ctx.translate(this.camera_x, 0);
 
         this.addToMap(this.character);

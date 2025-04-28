@@ -1,6 +1,6 @@
 class JellyFish extends MovableObject{
     name = "JellyFish";
-    IMAGES_WALKING = [ //Den Farbwechsel vllt. für Schwierigkeitsgrad/Level nutzen 
+    IMAGES_SWIMMING = [ //Den Farbwechsel vllt. für Schwierigkeitsgrad/Level nutzen 
       '../assets/img/2.Enemy/2 Jelly fish/Regular damage/Lila 1.png',
       '../assets/img/2.Enemy/2 Jelly fish/Regular damage/Lila 2.png',
       '../assets/img/2.Enemy/2 Jelly fish/Regular damage/Lila 3.png',
@@ -31,14 +31,14 @@ class JellyFish extends MovableObject{
     constructor(){
         super().loadImage('../assets/img/2.Enemy/2 Jelly fish/Regular damage/Lila 1.png');
         this.x = 200 + Math.random()*500;
-        this.loadImages(this.IMAGES_WALKING);
+        this.loadImages(this.IMAGES_SWIMMING);
         this.speed = 0.15 + Math.random() * 0.3
         this.animate();
     }
 
     animate(){
         setInterval(() => {
-            this.playAnimation(this.IMAGES_WALKING);
+            this.playAnimation(this.IMAGES_SWIMMING);
         }, 1000 /4);
         this.moveUp();
     }
