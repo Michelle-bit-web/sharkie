@@ -6,6 +6,8 @@ class World {
     keyboard;
     camera_x = 0;
     statusbar = new Statusbar();
+    throwableObjects = [];
+    collectableObjects = [new CollectableObjects()];
 
     constructor(canvas, keyboard){
         this.ctx = canvas.getContext('2d');
@@ -13,25 +15,37 @@ class World {
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();
-        this.checkCollisions();
+        this.run();
     }
     
     setWorld(){
         this.character.world = this;
     }
 
-    checkCollisions(){
+    run(){
         setInterval(() => {
-            this.level.enemies.forEach((enemy) => {
-                if(this.character.isColliding(enemy)){
-                    this.character.hitByEnemyType = enemy;
-                    // console.log(enemy);
-                    // console.log(this.character.hitByEnemyType) //gibt den richtigen letzten Enemy aus
-                    this.character.hit();
-                   this.statusbar.setPercentage(this.character.energy);
-                }
-            })
+            this.checkCollision();
+            this.checkThrowing();
         }, 100)
+    }
+
+    checkCollision(){
+        this.level.enemies.forEach((enemy) => {
+            if(this.character.isColliding(enemy)){
+                this.character.hitByEnemyType = enemy;
+                // console.log(enemy);
+                // console.log(this.character.hitByEnemyType) //gibt den richtigen letzten Enemy aus
+                this.character.hit();
+                this.statusbar.setPercentage(this.character.energy);
+            }
+        });
+    }
+
+    checkThrowing(){
+        if(this.keyboard.THROW){
+           let bubble = new ThrowableObject(this.character.x, this.character.y, this.keyboard);
+            this.throwableObjects.push(bubble)
+        }
     }
 
     draw(){
@@ -46,13 +60,15 @@ class World {
 
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.enemies);
+        this.addObjectsToMap(this.throwableObjects);
+        this.addObjectsToMap(this.collectableObjects);
         
         this.ctx.translate(-this.camera_x, 0);
         
         requestAnimationFrame( () => this.draw());
     }
     addObjectsToMap(objects){
-        objects.forEach(obj => this.addToMap(obj))
+        objects.forEach(obj => this.addToMap(obj));
     }
 
     addToMap(mo) {

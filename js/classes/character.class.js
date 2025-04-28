@@ -127,17 +127,5 @@ class Character extends MovableObject {
        };
     }, 50);      
   }
-
-  applyGravity(){
-    setInterval(() => {
-      if(this.isAboveGround() || this.speedY > 0){
-        this.y -= this.speedY;
-        this.speedY -= this.acceleration;
-      }
-    }, 1000 / 25)
-  }
-isAboveGround(){
-  return this.y < 130;
-}
   jump() {}
 }
