@@ -9,7 +9,13 @@ class World {
     coinStatusbar = new Statusbar('coin', 20, 45);
     poisonStatusbar = new Statusbar('poison', 20, 85);
     throwableObjects = [];
-    collectableObjects = [new CollectableObjects()];
+    collectableObjects = [
+        new CollectableObjects("coin", 200, 250),
+        new CollectableObjects("coin", 250, 200),
+        new CollectableObjects("coin", 300, 180),
+        new CollectableObjects("coin", 350, 200),
+        new CollectableObjects("coin", 400, 250),
+        new CollectableObjects("poison", 100, 350),];
 
     constructor(canvas, keyboard){
         this.ctx = canvas.getContext('2d');
@@ -80,7 +86,7 @@ class World {
            this.flipImage(mo);
         }
         mo.draw(this.ctx);
-        mo.drawFrame(this.ctx);
+        // mo.drawFrame(this.ctx);
         mo.drawOffsetFrame(this.ctx);
         if(mo.otherDirection){
            this.flipImageBack(mo);

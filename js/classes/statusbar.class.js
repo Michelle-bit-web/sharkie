@@ -1,6 +1,6 @@
 class Statusbar extends DrawableObject{
     percentage = 100;
-    typeof;
+    type;
     images;
 
     IMAGES_ENERGY = [
