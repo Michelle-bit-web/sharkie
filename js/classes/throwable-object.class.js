@@ -1,12 +1,11 @@
 class ThrowableObject extends MovableObject{
-    // IMAGES_BUBBLE =[
-    //     "../assets/img/1.Sharkie/4.Attack/Bubble trap/Bubble.png",
-    //     "../assets/img/1.Sharkie/4.Attack/Bubble trap/Poisoned Bubble (for whale).png",
-    // ]; 
+    IMAGE_BUBBLE = "../assets/img/1.Sharkie/4.Attack/Bubble trap/Bubble.png"; 
+    IMAGES_BUBBLE_POISON = "../assets/img/1.Sharkie/4.Attack/Bubble trap/Poisoned Bubble (for whale).png"; 
     keyboard;
 
     constructor(x, y, keyboard){
         super().loadImage( "../assets/img/1.Sharkie/4.Attack/Bubble trap/Bubble.png");
+        this.loadImage( "../assets/img/1.Sharkie/4.Attack/Bubble trap/Poisoned Bubble (for whale).png");
         this.keyboard = keyboard;
         this.x = x;
         this.y = y;

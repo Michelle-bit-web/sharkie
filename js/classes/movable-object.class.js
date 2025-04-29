@@ -8,6 +8,8 @@ class MovableObject extends DrawableObject {
     bottom: 0,
   };
   energy = 100;
+  coins = 0;
+  bottles = 0;
   hitByEnemyType;
   lastHit = 0;
 

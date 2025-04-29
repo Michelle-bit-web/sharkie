@@ -71,6 +71,43 @@ class Character extends MovableObject {
     "../assets/img/1.Sharkie/5.Hurt/2.Electric shock/3.png",
   ];
 
+  IMAGES_DYING_ELECTRO = [
+    "../assets/img/1.Sharkie/6.dead/2.Electro_shock/1.png",
+    "../assets/img/1.Sharkie/6.dead/2.Electro_shock/2.png",
+    "../assets/img/1.Sharkie/6.dead/2.Electro_shock/3.png",
+    "../assets/img/1.Sharkie/6.dead/2.Electro_shock/4.png",
+    "../assets/img/1.Sharkie/6.dead/2.Electro_shock/5.png",
+    "../assets/img/1.Sharkie/6.dead/2.Electro_shock/6.png",
+    "../assets/img/1.Sharkie/6.dead/2.Electro_shock/7.png",
+    "../assets/img/1.Sharkie/6.dead/2.Electro_shock/8.png",
+    "../assets/img/1.Sharkie/6.dead/2.Electro_shock/9.png",
+    "../assets/img/1.Sharkie/6.dead/2.Electro_shock/10.png",
+  ];
+
+  IMAGES_BUBBLE =[
+    "../assets/img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/1.png",
+    "../assets/img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/2.png",
+    "../assets/img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/3.png",
+    "../assets/img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/4.png",
+    "../assets/img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/5.png",
+    "../assets/img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/6.png",
+    "../assets/img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/7.png",
+    "../assets/img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/8.png",
+    "../assets/img/1.Sharkie/4.Attack/Bubble trap/Bubble.png",
+    
+]; 
+IMAGES_BUBBLE_POISON =[
+    "../assets/img/1.Sharkie/4.Attack/Bubble trap/For Whale/1.png",
+    "../assets/img/1.Sharkie/4.Attack/Bubble trap/For Whale/2.png",
+    "../assets/img/1.Sharkie/4.Attack/Bubble trap/For Whale/3.png",
+    "../assets/img/1.Sharkie/4.Attack/Bubble trap/For Whale/4.png",
+    "../assets/img/1.Sharkie/4.Attack/Bubble trap/For Whale/5.png",
+    "../assets/img/1.Sharkie/4.Attack/Bubble trap/For Whale/6.png",
+    "../assets/img/1.Sharkie/4.Attack/Bubble trap/For Whale/7.png",
+    "../assets/img/1.Sharkie/4.Attack/Bubble trap/For Whale/8.png",
+   "../assets/img/1.Sharkie/4.Attack/Bubble trap/Poisoned Bubble (for whale).png",
+]; 
+
   constructor() {
     super().loadImage("../assets/img/1.Sharkie/3.Swim/1.png");
     this.loadImages(this.IMAGES_SWIMMING);
@@ -79,6 +116,8 @@ class Character extends MovableObject {
     this.loadImages(this.IMAGES_DYING_ELECTRO);
     this.loadImages(this.IMAGES_HURT);
     this.loadImages(this.IMAGES_HURT_ELECTRO);
+    this.loadImages(this.IMAGES_BUBBLE);
+    this.loadImages(this.IMAGES_BUBBLE_POISON);
     this.animate();
     this.applyGravity();
   }
@@ -122,10 +161,25 @@ class Character extends MovableObject {
         }
       } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) { //this.world.keyboard.SPACE for jump
          this.playAnimation(this.IMAGES_SWIMMING);
-       } else{
+       } else if (this.world.keyboard.THROW) { 
+        this.playAnimation(this.IMAGES_BUBBLE);
+      } else{
          this.playAnimation(this.IMAGES_RESTING); 
        };
-    }, 50);      
+    }, 80);      
   }
-  jump() {}
+  
+  hit(hittenObject) {
+    if (hittenObject instanceof Chicken || hittenObject instanceof Endboss) {
+        this.changeEnergy();
+    } else if (hittenObject instanceof CollectableObject) {
+        if (hittenObject.imageType === "coin") {
+            this.coins++;
+            this.world.coinStatusbar.setPercentage(this.coins);
+        } else if (hittenObject.imageType === "bottle" || hittenObject.imageType === "bottleGround") {
+            this.bottles++;
+            this.world.bottleStatusbar.setPercentage(this.bottles);
+        }
+    }
+}
 }

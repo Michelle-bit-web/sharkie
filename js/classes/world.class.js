@@ -9,13 +9,7 @@ class World {
     coinStatusbar = new Statusbar('coin', 20, 45);
     poisonStatusbar = new Statusbar('poison', 20, 85);
     throwableObjects = [];
-    collectableObjects = [
-        new CollectableObjects("coin", 200, 250),
-        new CollectableObjects("coin", 250, 200),
-        new CollectableObjects("coin", 300, 180),
-        new CollectableObjects("coin", 350, 200),
-        new CollectableObjects("coin", 400, 250),
-        new CollectableObjects("poison", 100, 350),];
+    collectableObjects = [];
 
     constructor(canvas, keyboard){
         this.ctx = canvas.getContext('2d');
@@ -34,26 +28,84 @@ class World {
         setInterval(() => {
             this.checkCollision();
             this.checkThrowing();
-        }, 100)
+            this.checkCharacterDistance();
+        }, 100);
     }
 
     checkCollision(){
+       this.checkCollisionEnemies();
+       this.checkCollisionCollectables();
+    }
+
+    checkCollisionEnemies(){
         this.level.enemies.forEach((enemy) => {
             if(this.character.isColliding(enemy)){
                 this.character.hitByEnemyType = enemy;
                 // console.log(enemy);
                 // console.log(this.character.hitByEnemyType) //gibt den richtigen letzten Enemy aus
-                this.character.hit();
-                this.energyStatusbar.setPercentage(this.character.energy);
+                this.character.hit(enemy);
+                this.changeStatusbar(this.energyStatusbar, -20);
+                // this.energyStatusbar.setPercentage(this.character.energy);
             }
         });
+    }
+
+    checkCollisionCollectables(){
+      this.collectableObjects.forEach((item, index) => {
+        if(this.character.isColliding(item)){
+            if(item.imageType == "coin"){
+                this.changeStatusbar(this.coinStatusbar, 1);
+            }else if(item.imageType == "poison"){
+                this.changeStatusbar(this.poisonStatusbar, 1);
+            };
+            this.collectableObjects.splice(index, 1);
+        };
+      });
+    }
+
+    changeStatusbar(statusbar, direction){
+        if (statusbar.type === 'energy') {
+            statusbar.setPercentage(Math.max(0, statusbar.percentage + direction)); // z. B. -20 bei Schaden
+        } else {
+            let current = statusbar.type === 'coin' ? this.character.coins : this.character.bottles;
+            current = Math.max(0, Math.min(current + direction, 5)); // Begrenzung auf 0–5
+           
+            if (statusbar.type === 'coin') {
+                this.character.coins = current;
+            } else {
+                this.character.bottles = current;
+            }
+            statusbar.setPercentage(current);
+        }
     }
 
     checkThrowing(){
         if(this.keyboard.THROW){
            let bubble = new ThrowableObject(this.character.x + this.character.width, this.character.y + this.character.height/2, this.keyboard);
-            this.throwableObjects.push(bubble)
+            this.throwableObjects.push(bubble);
+            this.changeStatusbar(this.poisonStatusbar, -1);
         }
+    }
+
+    checkCharacterDistance(){
+        const treshold = [0, 200, 800, 1200];
+        treshold.forEach((treshold, index) => {
+            if(this.character.x > treshold && !this[`collectableObjectsGenerated${index}`]){
+                this.generateNewCollectable();
+            };
+            this[`collectableObjectsGenerated${index}`] = true;
+        });
+    }
+
+    generateNewCollectable(){
+        this.collectableObjects.push(
+         new CollectableObjects("coin", this.character.x + 120, this.character.y + 150),
+         new CollectableObjects("coin", this.character.x + 180, this.character.y + 100),
+         new CollectableObjects("coin", this.character.x + 240, this.character.y + 100),
+         new CollectableObjects("coin", this.character.x + 300, this.character.y + 150),
+         new CollectableObjects("coin", this.character.x + 300, this.character.y + 150),
+         new CollectableObjects("poison", this.character.x + 120 , this.character.y +  300),
+        );
     }
 
     draw(){
