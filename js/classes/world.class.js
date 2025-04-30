@@ -22,6 +22,7 @@ class World {
     
     setWorld(){
         this.character.world = this;
+        this.level.enemies.forEach(enemy => enemy.world = this);
     }
 
     run(){
@@ -92,9 +93,18 @@ class World {
         treshold.forEach((treshold, index) => {
             if(this.character.x > treshold && !this[`collectableObjectsGenerated${index}`]){
                 this.generateNewCollectable();
+                this[`collectableObjectsGenerated${index}`] = true;
+                this.checkEndbossAnimation(index);
             };
-            this[`collectableObjectsGenerated${index}`] = true;
         });
+    }
+
+    checkEndbossAnimation(index){
+        this.level.enemies.forEach(enemy =>{
+            if(enemy instanceof Endboss && index === 3){
+                enemy.startShowUp();
+            }
+        })
     }
 
     generateNewCollectable(){
@@ -130,7 +140,11 @@ class World {
         requestAnimationFrame( () => this.draw());
     }
     addObjectsToMap(objects){
-        objects.forEach(obj => this.addToMap(obj));
+        objects.forEach(obj => {
+            if (!(obj instanceof Endboss) || obj.visible) {
+                this.addToMap(obj);
+            }
+        });
     }
 
     addToMap(mo) {
@@ -138,7 +152,7 @@ class World {
            this.flipImage(mo);
         }
         mo.draw(this.ctx);
-        // mo.drawFrame(this.ctx);
+        mo.drawFrame(this.ctx);
         mo.drawOffsetFrame(this.ctx);
         if(mo.otherDirection){
            this.flipImageBack(mo);

@@ -7,7 +7,9 @@ class Endboss extends MovableObject{
         left: 30,
         right: 30,
         bottom: 80
-      }
+      };
+      endbossHasShownUp = false;
+      visible = false;
 
     IMAGES_SHOW_UP = [ //Den Farbwechsel vllt. für Schwierigkeitsgrad/Level nutzen 
         '../assets/img/2.Enemy/3 Final Enemy/1.Introduce/1.png',
@@ -67,18 +69,38 @@ class Endboss extends MovableObject{
          this.loadImages(this.IMAGES_ATTACKING);
          this.loadImages(this.IMAGES_HURT);
          this.loadImages(this.IMAGES_DEAD);
-         this.animate();
+         // this.animate();
          this.speed = 0.4;
      }
  
-     animate(){
-         setInterval(() => {
-            this.playAnimation(this.IMAGES_SHOW_UP);
-            this.playAnimation(this.IMAGES_FLOATING);
-            this.playAnimation(this.IMAGES_ATTACKING);
-            this.playAnimation(this.IMAGES_HURT);
-            this.playAnimation(this.IMAGES_DEAD);
-         }, 1000/2);
-         this.moveLeft();
+   //   animate(){
+   //    if(this.world[`collectableObjectsGenerated${0}`] == true){
+   //       this.setAnInterval(this.IMAGES_SHOW_UP, 500);
+   //    }
+   //    // else if(){}
+   //    // else if(){}
+   //    else{
+   //       this.setAnInterval(this.IMAGES_FLOATING, 500);
+   //       this.moveLeft();
+   //    }
+   //   }
+
+     //Methoden für einzelne Animationen bauen und diese in der World abrufen
+     startShowUp(){
+      if(!this.endbossHasShownUp){
+         this.setAnInterval(this.IMAGES_SHOW_UP, 500);
+         this.startFloating();
+         this.endbossHasShownUp = true;
+         this.visible = true;
+      }
+      
+     }
+
+     startFloating(){ //hier vielleicht dann auch das Inerval von davor beenden?
+      this.setAnInterval(this.IMAGES_FLOATING, 300);
+     }
+
+     setAnInterval(images, time){
+      return setInterval(() => this.playAnimation(images), time);
      }
 }

@@ -54,6 +54,12 @@ class Statusbar extends DrawableObject{
         this.loadImages(this.images);
     }
 
+    draw(ctx){
+        const path = this.images[this.resolveImageIndex()];
+        this.img = this.imageCache[path]; // hier wird das Bild aktualisiert
+        super.draw(ctx); // ruft DrawableObject.draw(ctx) auf 
+    }
+
     setPercentage(percentage){
         if(this.type == "coin"){
             this.coins = percentage;

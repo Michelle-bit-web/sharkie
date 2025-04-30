@@ -169,17 +169,17 @@ IMAGES_BUBBLE_POISON =[
     }, 80);      
   }
   
-  hit(hittenObject) {
-    if (hittenObject instanceof Chicken || hittenObject instanceof Endboss) {
-        this.changeEnergy();
-    } else if (hittenObject instanceof CollectableObject) {
-        if (hittenObject.imageType === "coin") {
-            this.coins++;
-            this.world.coinStatusbar.setPercentage(this.coins);
-        } else if (hittenObject.imageType === "bottle" || hittenObject.imageType === "bottleGround") {
-            this.bottles++;
-            this.world.bottleStatusbar.setPercentage(this.bottles);
-        }
-    }
-}
+//   hit(hittenObject) {
+//     if (hittenObject instanceof Fish || hittenObject instanceof JellyFish || hittenObject instanceof Endboss) {
+//         // this.changeEnergy();
+//     } else if (hittenObject instanceof CollectableObject) {
+//         if (hittenObject.imageType === "coin") {
+//             this.coins++;
+//             this.world.coinStatusbar.setPercentage(this.coins);
+//         } else if (hittenObject.imageType === "bottle" || hittenObject.imageType === "bottleGround") {
+//             this.bottles++;
+//             this.world.bottleStatusbar.setPercentage(this.bottles);
+//         }
+//     }
+// }
 }
